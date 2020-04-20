@@ -1,0 +1,56 @@
+<h3>{{viewTitle}}</h3>
+
+   {{!-- /* <form method="POST" autocomplete="off"></form> --}}
+        <div class="form-group">
+            <label>Book_id</label>
+            <input type="Number" class="form-control" name="book_id" placeholder="Book_id">
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name"  placeholder="Name">
+        </div>
+        <div class="form-row">
+            <div class="form-group md-6">
+                <label>Author Name</label>
+                <input type="text" name="author_name" placeholder="Author Name" class="form-control">
+                
+             </div>
+            <div class="form-group md-6">
+                <label>Quantity</label>
+                <input type="Number" name="quantity" placeholder="Quantity"  class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-info" onclick="add()"><i class="fa fa-database"></i>Submit</button>
+            <a href="" class="btn btn-danger">
+                <i class="fa fa-list-alt"></i>View All
+            </a>
+        </div>
+        <script>
+        function add(){
+        var book_id = document.getElementsByName("book_id").value
+        var name = document.getElementsByName("name").value
+        var author_name = document.getElementsByName("author_name").value
+        var quantity = document.getElementsByName("quantity").value
+        var xmlHttpRequest = new XMLHttpRequest()
+         xmlHttpRequest.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                   // document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                    console.log("add success")
+                   window.location = "/"
+                }
+                else {
+                    document.getElementById("error").innerText = JSON.parse(this.responseText).message
+                }
+            }
+        }
+        xmlHttpRequest.open("POST","/book/add", true)
+        xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
+        xmlHttpRequest.send(JSON.stringify({ book_id: book_id, name: name, author_name: author_name, quantity: quantity }))
+    }
+
+        </script>
+
+    {{!-- </form> --}}
