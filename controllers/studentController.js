@@ -1,12 +1,12 @@
 const Student = require("../models/Students");
-
+//const IssuedBook =  require("../models/IssuedBooks");
   exports.add = (req,res) => {
     console.log("inside add");
     var student = new Student({
     name : req.body.name,
     roll_no :req.body.roll_no,
     branch : req.body.branch,
-    mobile_no : req.body.mobile_no
+    books : req.body.books
   });
     
     student.save().then(() => {
@@ -30,7 +30,7 @@ const Student = require("../models/Students");
       name : "manav",
       roll_no : "8",
       branch : "cse",
-      mobile_no : "9811870412"
+      books : "10"
      };
      Student.updateOne(query, newstudent, function(err, obj) {
       if (err) throw err;
@@ -47,6 +47,28 @@ const Student = require("../models/Students");
       res.status(200).send("List has been showed");
       console.log(record);
     });
-    
 
 }
+
+exports.data =async(req,res)=>{
+  console.log("inside data");
+   // var query = { quantity : {$gt:10} };
+    Student.find( { books : {$gt:2} },{books:1,_id:0,name:1}).lean().exec(function(err, quantityarr) {
+      if (err) throw err;
+      console.log(quantityarr);
+      var x;
+      var valuearr=[];
+      var namearr=[];
+      var i=0;
+      for(x in quantityarr){
+       // console.log(quantityarr[x].quantity);
+       // console.log(quantityarr[x].name);
+        valuearr[i]=quantityarr[x].books;
+        namearr[i]=quantityarr[x].name
+        i++;
+      }
+      console.log(valuearr);
+      console.log(namearr);
+    });
+  
+  }
