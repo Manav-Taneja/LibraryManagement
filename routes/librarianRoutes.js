@@ -6,5 +6,7 @@ module.exports = (app) => {
     app.post('/librarian/signup', librarianController.signup);
     
     app.delete('/librarian/signout', auth, librarianController.signout);
+
+    app.put('/librarian/reset',librarianController.reset);
     
-        }
+ }

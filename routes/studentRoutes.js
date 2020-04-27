@@ -12,5 +12,9 @@ module.exports = (app) => {
     app.put('/student/update/:id', studentController.update);
     
     app.get("/student/listall", studentController.listall);
-    }
+
+    //app.post("/student/issuedBooks/:id",studentController.issuedBook);
+    app.get('/student/data',studentController.data);
+
+}
     
