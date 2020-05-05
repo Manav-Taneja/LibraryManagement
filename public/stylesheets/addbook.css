@@ -1,0 +1,120 @@
+ .navbar {
+      background-image: url("/images/Bg.jpg");
+      color: white;
+      padding-top: 0px;
+      padding-bottom: 0%;
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 650px}
+    
+    /* Set gray background color and 100% height */
+   /*  .sidenav {
+      padding-top: 20px;
+      background-color: #2f323a;
+      height: 100%;
+    } */
+    .sidebar a{
+    color: #fff;
+    display: block;
+    width: 100%;
+    line-height: 60px;
+    text-decoration: none;
+    padding-left: 40px;
+    box-sizing: border-box;
+    transition: 0.5s;
+    /* transition-property: background; */
+  }
+  .sidebar {
+    background: #2f323a;
+    margin-top: 0px;
+    text-align: left;
+    padding-top: 30px;
+    position: relative;
+    left: 0;
+    overflow: hidden;
+    width: 250px;
+    height: auto;
+    transition: 0.5s;
+    transition-property: left;
+  }
+  
+  .sidebar .profile_image{
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .sidebar h4{
+    color: #ccc;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .sidebar a:hover{
+    background: #19B3D3;
+  }
+  
+  .sidebar i{
+    padding-right: 10px;
+  }
+  
+  label #sidebar_btn{
+    z-index: 1;
+    color: #fff;
+    position: fixed;
+    cursor: pointer;
+    left: 300px;
+    font-size: 20px;
+    margin: 5px 0;
+    transition: 0.5s;
+    transition-property: color;
+  }
+  
+  label #sidebar_btn:hover{
+    color: #19B3D3;
+  }
+  
+  #check:checked ~ .sidebar{
+    left: -190px;
+  }
+  
+  #check:checked ~ .sidebar a span{
+    display: none;
+  }
+  
+  #check:checked ~ .sidebar a{
+    font-size: 20px;
+    margin-left: 170px;
+    width: 80px;
+  }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-image: url("Bg.jpg");
+      padding: 10px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+    .button {
+  background-color: #555555; /* black */
+  border: aliceblue;
+  color: white;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 2px 1px;
+  cursor: pointer;
+}

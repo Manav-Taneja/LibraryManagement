@@ -7,7 +7,7 @@ module.exports = (app) => {
     
     app.post('/student/add', studentController.add);
     
-    app.delete('/student/delete/:id', studentController.delete);
+    app.get('/student/delete/:id', studentController.delete);
     
     app.put('/student/update/:id', studentController.update);
     

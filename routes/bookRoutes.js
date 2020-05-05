@@ -4,8 +4,8 @@
 //var urlendcodedParser = bodyParser.urlencoded({extended:false})
 module.exports = (app) => {
 const booksController = require('../controllers/bookController')
-
-app.post('/book/add', booksController.add);
+const auth = require('../middlewares/auth');
+app.post('/book/add',auth, booksController.add);
 
 app.get('/book/delete/:id', booksController.delete);
 
