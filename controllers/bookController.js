@@ -1,5 +1,8 @@
 const Book = require("../models/Books");
-  exports.add = (req,res) => {
+const Librarian=require("../models/Librarian")
+const Token=require('../models/Tokens')
+  exports.add = async(req,res) => {
+   // var token = await Token.findById(req.token._id);
     console.log("inside add");
     console.log(req.body);
     var book = new Book({
@@ -19,7 +22,7 @@ const Book = require("../models/Books");
      Book.deleteOne(query, function(err, obj) {
       if (err) throw err;
       //res.status(200).send("Document deleted successfully");
-      res.redirect('/book');
+      res.redirect('/book/listall');
       console.log("1 document deleted");
     });
  }
@@ -51,7 +54,7 @@ const Book = require("../models/Books");
      Book.find().lean().exec(function (err, blogs) {
       if(err) throw err;
      // res.status(200).send("List has been showed");
-     res.render('list',{
+     res.render('booklist',{
       list:blogs
     })
       console.log(blogs);
@@ -65,31 +68,34 @@ const Book = require("../models/Books");
    var query={name: book};
    Book.find(query).lean().exec(function (err, blogs) {
     if(err) throw err;
-    res.status(200).send(blogs)
-    console.log(blogs);
+   // res.status(200).send(blogs)
+   res.render('booklist',{
+    list:blogs
+  }) 
+   console.log(blogs);
   });
 
  }
-exports.data =async(req,res)=>{
-console.log("inside data");
- // var query = { quantity : {$gt:10} };
-  Book.find( { quantity : {$gt:1} },{quantity:1,_id:0,name:1}).lean().exec(function(err, quantityarr) {
-    if (err) throw err;
-    console.log(quantityarr);
-    var x;
-    var valuearr=[];
+ exports.data =async(req,res)=>{
+ console.log("inside data");
+  // var query = { quantity : {$gt:10} };
+   Book.find( { quantity : {$gt:1} },{quantity:1,_id:0,name:1}).lean().exec(function(err, quantityarr) {
+     if (err) throw err;
+     console.log(quantityarr);
+     var x;
+     var valuearr=[];
     var namearr=[];
     var i=0;
-    for(x in quantityarr){
-     // console.log(quantityarr[x].quantity);
-     // console.log(quantityarr[x].name);
-      valuearr[i]=quantityarr[x].quantity;
-      namearr[i]=quantityarr[x].name
-      i++;
-    }
-    console.log(valuearr);
-    console.log(namearr);
-  });
-
-}
- 
+     for(x in quantityarr){
+      // console.log(quantityarr[x].quantity);
+      // console.log(quantityarr[x].name);
+       valuearr[i]=quantityarr[x].quantity;
+       namearr[i]=quantityarr[x].name
+       i++;
+     }
+     console.log(valuearr);
+     console.log(namearr);
+     res.status(200).send(quantityarr);
+   });
+ //return quantityarr;
+ }

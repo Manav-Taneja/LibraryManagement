@@ -14,12 +14,13 @@ const Student = require("../models/Students");
 }
  exports.delete= async (req, res) => {
      console.log("inside delete ");
-     var rollno = req.url.split("/")[3];
-     var query = {roll_no : rollno};
+     var id = req.url.split("/")[3];
+     var query = {_id : id};
      Student.deleteOne(query, function(err, obj) {
       if (err) throw err;
-      res.status(200).send("Record deleted successfully");
-      console.log("1 record deleted");
+     // res.status(200).send("Record deleted successfully");
+     res.redirect('/student/listall'); 
+     console.log("1 record deleted");
     });
  }
  exports.update = async (req, res) => {
@@ -44,8 +45,11 @@ const Student = require("../models/Students");
      console.log("inside list");
      Student.find().lean().exec(function (err, record) {
       if(err) throw err;
-      res.status(200).send("List has been showed");
-      console.log(record);
+    //  res.status(200).send("List has been showed");
+    res.render('studentlist',{
+      list:record
+    })  
+    console.log(record);
     });
 
 }
@@ -53,7 +57,7 @@ const Student = require("../models/Students");
 exports.data =async(req,res)=>{
   console.log("inside data");
    // var query = { quantity : {$gt:10} };
-    Student.find( { books : {$gt:2} },{books:1,_id:0,name:1}).lean().exec(function(err, quantityarr) {
+    Student.find( { books : {$gt:1} },{books:1,_id:0,name:1}).lean().exec(function(err, quantityarr) {
       if (err) throw err;
       console.log(quantityarr);
       var x;
@@ -69,6 +73,7 @@ exports.data =async(req,res)=>{
       }
       console.log(valuearr);
       console.log(namearr);
+      res.status(200).send(quantityarr);
     });
   
   }

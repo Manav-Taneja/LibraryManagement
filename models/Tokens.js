@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { ObjectId } = mongoose.Schema.Types;
 
 let tokenSchema = new mongoose.Schema({
-  userId: { type: ObjectId, ref: "User" }
+  userId: { type: ObjectId, ref: "Librarian" }
 });
 
 module.exports = mongoose.model("Token", tokenSchema);

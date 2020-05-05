@@ -2,7 +2,32 @@ const mongoose=require('mongoose');
 const Loan=require("../models/Loan");
 const Book = require('../models/Books');
 const Student = require('../models/Students');
-exports.issue = (req,res) =>{
+
+exports.listall = async (req, res) => {
+    console.log("inside list");
+    Book.find().lean().exec(function (err, blogs) {
+     if(err) throw err;
+    // res.status(200).send("List has been showed");
+    res.status(200).send(blogs);
+     console.log(blogs);
+   });
+   
+
+}
+
+exports.listallstudent = async (req, res) => {
+    console.log("inside list");
+    Student.find().lean().exec(function (err, record) {
+     if(err) throw err;
+   //  res.status(200).send("List has been showed");
+   res.status(200).send(record);
+   console.log(record);
+   });
+
+}
+
+
+exports.issue = async (req,res) =>{
     console.log("inside issue");
     Student.findById(req.body.studentID)
     .then(student=>{
@@ -65,15 +90,16 @@ exports.issue = (req,res) =>{
     }
 
 exports.show = (req,res) =>{
-
+         if(req.cookies.authorization)
+         
         console.log("inside show");
-            Loan.find().populate('book','name').populate('student','roll_no').exec(function (err, blogs) {
+            Loan.find().populate('book','name').populate('student').exec(function (err, blogs) {
          if(err) throw err;
         // res.status(200).send("List has been showed");
-        //     res.render('list',{
-       //     list:blogs
-    //   })
-         console.log(blogs.book);
-    res.status(200).send(blogs);
+          res.render('issuelist',{
+            list:blogs
+       })
+       //  console.log(book);
+    //res.status(200).send(blogs);
        });    
-}
+    }
