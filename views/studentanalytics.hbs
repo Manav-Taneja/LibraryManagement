@@ -1,0 +1,145 @@
+<body onload="adddata()">
+  <header>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="/stylesheets/addbook.css" />
+  </header>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button> -->
+     <!--  <a class="navbar-brand" href="#"><img src="Logo.jpg" height="400%" width="10%" ></a> -->
+      
+        <p style="font-size: 300%;" style="color: white;"> Library Management System </p>
+      
+    </div>
+    
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Out</button></a></li>
+        <!-- <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Up</button></a></li> -->
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidebar">
+      <center><img src="/images/2.png" height="100%" width="100%"></center>
+        <center><p style="color: white;">Hello User</p></center>
+      <div class="sidebar">
+        
+        <a href="/show"><i class="fas fa-table"></i>Dashboard</a>  
+        <a href="/book"><i class="fas fa-table"></i>Add Book</a>
+        <a href="/student"><i class="fas fa-table"></i>Add Student</a>
+        <a href="/bookrenderissue"><i class="fas fa-table"></i>Book Issue</a>
+        <a href="/book/listall"><i class="fas fa-cogs"></i>View Book</a>
+        <a href="/student/listall"><i class="fas fa-info"></i>View Student</a>
+        <a href="/bookanalytics"><i class="fas fa-cogs"></i>Book Analytics</a>
+        <a href="/studentanalytics"><i class="fas fa-info"></i>Student Analytics</a>
+    </div>
+    </div>
+
+    <div class="col-sm-10 text-left"> <br>
+      <!-- <p style="font-size: 100%;">Library Management System</p> -->
+      <b style="font-size: 50px;">Student Analytics</b> 
+      <div class="nav navbar-nav navbar-right">
+        <form action="/action_page.php" style="font-size: large;">
+          <input type="text" placeholder="Search.." name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+      <hr>
+      <div style="margin-left:330px;background-color:white;margin-top:15px;padding:20px" class="col-md-6 offset-md-3">
+        <!-- {{{body}}} -->
+    </div>
+    <h3>
+        
+    <canvas id="myChart" style="height:40vh; width:50vw"></canvas>
+      <script>
+           var xhttp = new XMLHttpRequest();
+         function adddata() {
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var result = this.responseText
+            var obj = JSON.parse(this.responseText);
+            var x;
+            var valuearr = [];
+            var namearr = [];
+            var i = 0;
+            for (x in obj) {
+                valuearr[i] = obj[x].books;
+                namearr[i] = obj[x].name
+                i++;
+            }
+            var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+       // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          labels:namearr,
+        datasets: [{
+            label: '# quantity of books',
+           // data: [12, 19, 3, 5, 2, 3],
+              data:valuearr,
+            backgroundColor: [
+                'rgba(200, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+            console.log(valuearr);
+            console.log(namearr);
+        }
+    }
+    xhttp.open("GET", "/student/data", true);
+    xhttp.send();
+};
+      </script>
+  <br><br><b>Above figure shows the student with more no. of books more the height of bars most the quantity of book the student have</b>
+    </div>
+      <h3></h3>
+      <p></p>
+    </div>
+    </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <ul class="nav navbar-nav navbar-left">
+    <li><a href="#"><button class="button">About Us</button></a></li>
+    <li><a href="#"><button class="button">Contact Us</button></a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right"><br>
+    <li style="color: white;" style="font-size: 100%;">This site is managed and &copy; by Team2.</li>
+  </ul>
+  </footer>
+
+</body>

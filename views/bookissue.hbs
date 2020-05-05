@@ -1,5 +1,5 @@
-<body>
-<header><link rel="stylesheet" type="text/css" href="/stylesheets/addbook.css" /></header>
+<body onload="adddata()">
+<header ><link rel="stylesheet" type="text/css" href="/stylesheets/addbook.css" /></header>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -17,7 +17,7 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"> <button class="button" onclick="signout()"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Out</button></a></li>
+        <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Out</button></a></li>
         <!-- <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Up</button></a></li> -->
       </ul>
     </div>
@@ -30,7 +30,6 @@
       <img src="images/2.png" height="100%" width="100%">
         <center><p style="color: white;">Hello User</p></center>
       <div class="sidebar">
-        
          <a href="/show"><i class="fas fa-table"></i>Dashboard</a>  
         <a href="/book"><i class="fas fa-table"></i>Add Book</a>
         <a href="/student"><i class="fas fa-table"></i>Add Student</a>
@@ -44,7 +43,7 @@
 
     <div class="col-sm-10 text-left"> <br>
       <!-- <p style="font-size: 100%;">Library Management System</p> -->
-      <b style="font-size: 50px;">Add Book</b> 
+      <b style="font-size: 50px;">Issue Book</b> 
       <div class="nav navbar-nav navbar-right">
         <form action="/book/search/" method="GET" style="font-size: large;">
           <input type="text" name="" placeholder="Search.." id="search">
@@ -56,17 +55,22 @@
       
         <div style="margin-left:0px;background-color:white;margin-top:15px;padding:20px" class="col-md-6 offset-md-3">
         
-
+<label for="Book">Choose a Book for issue:</label>
+<select id="selectNumber">
+</select><br>
 {{!-- <form action="/booklist" method="POST" autocomplete="off"> --}}
 <div class="form-group">
-    <label style="font-size: large;">Book_id</label>
-    <input type="Number" class="form-control" name="book_id" placeholder="Book_id">
-</div>
+    {{!-- <label style="font-size: large;">Book Id</label>
+    <input type="text" class="form-control" name="book_id"  placeholder="Name"> --}}
+</div><br><br>
+<label for="Student">Choose a Name of the Student:</label>
+<select id="selectstudent" onclick="adddata1()">
+</select><br>
 <div class="form-group">
-    <label style="font-size: large;">Name</label>
-    <input type="text" class="form-control" name="name"  placeholder="Name">
-</div>
-<div class="form-row">
+    {{!-- <label style="font-size: large;">Student Id</label>
+    <input type="text" class="form-control" name="student_id"  placeholder="Name"> --}}
+</div><br><br>
+{{!-- <div class="form-row">
     <div class="form-group md-6">
         <label style="font-size: large;">Author Name</label>
         <input type="text" name="author_name" placeholder="Author Name" class="form-control">
@@ -75,79 +79,88 @@
     <div class="form-group md-6">
         <label style="font-size: large;">Quantity</label>
         <input type="Number" name="quantity" placeholder="Quantity"  class="form-control">
-    </div>
-</div>
+    </div> --}}
+{{!-- </div> --}}
 
 <div class="form-group">
-    <button type="submit" class="btn btn-info" onclick="add()"><i class="fa fa-database"></i>&nbsp;&nbsp;Submit</button>
-    <a href="/book/listall" class="btn btn-danger">
+    <button type="submit" class="btn btn-info" onclick="addd()"><i class="fa fa-database"></i>&nbsp;&nbsp;Submit</button>
+    <a href="/show" class="btn btn-danger">
         <i class="fa fa-list-alt"></i>&nbsp;&nbsp;View All
     </a>
-    <P id="error"></P>
 </div>
 <script>
- function add(){
-            console.log(document.getElementsByName("book_id"))
-        var book_id = document.getElementsByName("book_id")[0].value
+   var xmlHttpRequest = new XMLHttpRequest()
+    function adddata() {
+             var select = document.getElementById("selectNumber"); 
+             console.log("inside addata dfunction")
+        xmlHttpRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         //  {{!-- document.cookie = "authorization=" + this.getResponseHeader("authorization") --}}
+            var result = this.responseText
+            var obj = JSON.parse(this.responseText);
+            for(var i = 0; i < obj.length; i++) {
+            var opt = obj[i];   // get book 1 by 1 
+            console.log(obj)
+            var el = document.createElement("option");
+            el.text = opt.name;
+            el.value = opt._id;
+
+    select.add(el);
+        }
+    } 
+    }
+    xmlHttpRequest.open("GET", "/issuebook", true);
+    xmlHttpRequest.send();
+};
+ function adddata1() {
+             var selectstudent = document.getElementById("selectstudent"); 
+             console.log("inside student")
+        xmlHttpRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+       //    document.cookie = "authorization=" + this.getResponseHeader("authorization")
+            var result = this.responseText
+            var obj1 = JSON.parse(this.responseText);
+            for(var i = 0; i < obj1.length; i++) {
+            var opt1 = obj1[i];   // get book 1 by 1 
+            console.log(obj1)
+            var el = document.createElement("option");
+            el.text = opt1.name;
+            el.value = opt1._id;
+    selectstudent.add(el);
+        }
+    } 
+    }
+    xmlHttpRequest.open("GET", "/studentissue", true);
+    xmlHttpRequest.send();
+};
+ function addd(){
+           // console.log(document.getElementsByName("book_id"))
+        var book_id = document.getElementById("selectNumber").value
         console.log(book_id);
-        var name = document.getElementsByName("name")[0].value
-        var author_name = document.getElementsByName("author_name")[0].value
-        var quantity = document.getElementsByName("quantity")[0].value
-        var xmlHttpRequest = new XMLHttpRequest()
+        var student_id = document.getElementById("selectstudent").value
          xmlHttpRequest.onreadystatechange = function () {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                 //  document.cookie = "authorization=" + this.getResponseHeader("authorization")
+                 //  document.cookie = "authorization=" + this.getResponseHeader("authorization") 
                     console.log("add success")
-                   window.location = "/book/listall"
+                   window.location = "/show"
                 }
                 else {
                     document.getElementById("error").innerText = JSON.parse(this.responseText).message
                 }
             }
         }
-        xmlHttpRequest.open("POST","/book/add", true)
+        xmlHttpRequest.open("POST","/issue", true)
         xmlHttpRequest.setRequestHeader("Content-Type", "application/json")
-           console.log(getCookie("authorization"));
-        xmlHttpRequest.setRequestHeader("Authorization", getCookie("authorization"));
-        xmlHttpRequest.send(JSON.stringify({ book_id: book_id, name: name, author_name: author_name, quantity: quantity }))
+        xmlHttpRequest.send(JSON.stringify({ bookID : book_id, studentID : student_id }))
     }
-  function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-function search1(){
+
+    function search1(){
 console.log("inside search");
 var record=document.getElementById('search').value
 //var xmlHttpRequest = new XMLHttpRequest()
 window.open("http://localhost:3000/book/search/"+record);
 }
- function signout() {
-          console.log("Inside hbs signout");
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-                if (this.status == 200) {
-                  document.cookie = "authorization=" + this.getResponseHeader("authorization") 
-                    window.location = "/";
-                }
-            }
-        }
-        xhttp.open("POST", "/librarian/signout", true);
-        xhttp.setRequestHeader("Authorization", getCookie("authorization"));
-        xhttp.send();
- }
 </script>
 {{!-- </form> --}}
     </div>
