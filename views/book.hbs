@@ -46,8 +46,8 @@
       <!-- <p style="font-size: 100%;">Library Management System</p> -->
       <b style="font-size: 50px;">Add Book</b> 
       <div class="nav navbar-nav navbar-right">
-        <form action="/book/search/" method="GET" style="font-size: large;">
-          <input type="text" name="" placeholder="Search.." id="search">
+        <form action="" method="GET" style="font-size: large;">
+          <input type="text" name="" placeholder="Search book" id="search">
           <button type="submit" onclick="search1()"><i class="fa fa-search"></i></button>
          </form> 
       </div>
@@ -130,8 +130,7 @@
 function search1(){
 console.log("inside search");
 var record=document.getElementById('search').value
-//var xmlHttpRequest = new XMLHttpRequest()
-window.open("http://localhost:3000/book/search/"+record);
+window.open("http://52.14.235.218:3000/book/search/"+record)
 }
  function signout() {
           console.log("Inside hbs signout");
