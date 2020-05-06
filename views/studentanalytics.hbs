@@ -50,7 +50,7 @@
       <b style="font-size: 50px;">Student Analytics</b> 
       <div class="nav navbar-nav navbar-right">
         <form action="/book/search/" style="font-size: large;">
-          <input type="text" placeholder="Search.." name="search">
+          <input type="text" placeholder="Search book" id="search">
           <button type="submit" onclick="search1()"><i class="fa fa-search"></i></button>
         </form>
       </div>
@@ -159,8 +159,7 @@ var myChart = new Chart(ctx, {
 function search1(){
 console.log("inside search");
 var record=document.getElementById('search').value
-//var xmlHttpRequest = new XMLHttpRequest()
-window.open("http://localhost:3000/book/search/"+record);
+window.open("http://52.14.235.218:3000/book/search/"+record)
 }
       </script>
   <br><br><b>Above figure shows the student with more no. of books more the height of bars most the quantity of book the student have</b>
