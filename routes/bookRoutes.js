@@ -5,7 +5,7 @@
 module.exports = (app) => {
 const booksController = require('../controllers/bookController')
 const auth = require('../middlewares/auth');
-app.post('/book/add',auth, booksController.add);
+app.post('/book/add', booksController.add);
 
 app.get('/book/delete/:id', booksController.delete);
 
