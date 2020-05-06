@@ -156,6 +156,12 @@ var myChart = new Chart(ctx, {
   }
   return "";
 }
+function search1(){
+console.log("inside search");
+var record=document.getElementById('search').value
+//var xmlHttpRequest = new XMLHttpRequest()
+window.open("http://localhost:3000/book/search/"+record);
+}
       </script>
   <br><br><b>Above figure shows the no. of books read by the students as less the heights of the graph more the books read by the students or we can say that the more is the quantity less is the book read by students</b>
           </div>
