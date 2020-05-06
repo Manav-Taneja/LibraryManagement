@@ -17,7 +17,7 @@
     
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Out</button></a></li>
+        <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in" onclick="signout()"></span>&nbsp Sign-Out</button></a></li>
         <!-- <li><a href="#"> <button class="button"><span class="glyphicon glyphicon-log-in"></span>&nbsp Sign-Up</button></a></li> -->
       </ul>
     </div>
@@ -98,7 +98,39 @@ Student List
     </div>
     </div>
 </div>
-
+<script>
+ function signout() {
+          console.log("Inside hbs signout");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                  document.cookie = "authorization=" + this.getResponseHeader("authorization") 
+                    window.location = "/";
+                }
+            }
+        }
+        xhttp.open("POST", "/librarian/signout", true);
+         console.log(getCookie("authorization"));
+        xhttp.setRequestHeader("Authorization", getCookie("authorization"));
+        xhttp.send();
+    }
+     function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+</script>
 <footer class="container-fluid text-center">
     <ul class="nav navbar-nav navbar-left">
       <li><a href="#"><button class="button">About Us</button></a></li>
