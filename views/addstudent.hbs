@@ -45,7 +45,7 @@
         <!-- <p style="font-size: 100%;">Library Management System</p> -->
         <b style="font-size: 50px;">Add Student</b> 
       <div class="nav navbar-nav navbar-right">
-        <form action="/book/search/" style="font-size: large;">
+        <form action="" style="font-size: large;">
           <input type="text" placeholder="Search.." id="search">
           <button type="submit" onclick="search1()"><i class="fa fa-search"></i></button>
         </form>
@@ -145,7 +145,6 @@
 function search1(){
 console.log("inside search");
 var record=document.getElementById('search').value
-//var xmlHttpRequest = new XMLHttpRequest()
 window.location = "52.14.235.218:3000/book/search/"+record;
 }
 </script>
