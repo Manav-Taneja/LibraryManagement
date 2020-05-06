@@ -15,33 +15,35 @@ token = await token.save()
 
 res.header("authorization", token._id)
 
-    var nodemailer = require('nodemailer');
+   let nodemailer = require('nodemailer');
+let aws = require('aws-sdk');
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'manav18csu121@ncuindia.edu',
-    pass: 'manav54321'
-  }
+// configure AWS SDK
+aws.config.loadFromPath('config.json');
+
+// create Nodemailer SES transporter
+let transporter = nodemailer.createTransport({
+    SES: new aws.SES({
+        apiVersion: '2010-12-01'
+    })
 });
 
-var mailOptions = {
-  from: 'manav18csu121@ncuindia.edu',
-  to: req.body.email,
-  subject: 'Verification mail',
- // text: 'http://localhost:3000/show'
-  html:"<h1>Hello Guys</h1><br><p>verification from .. system</p><br><a href='http://localhost:3000/show'>click me</a>"
-
-};
-
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('Email sent: ' + info.response);
-    res.status(200).send({msg:"Email sent to above email address please verify"});
-  }
-})
+// send some mail
+transporter.sendMail({
+    from: 'manav.taneja26@gmail.com',
+    to: req.body.email,
+    subject: 'Message',
+    html:"<h1>Hello Guys</h1><br><p>verification from .. system</p><br><a href='http://localhost:3000/show'>click me</a>",
+    ses: { // optional extra arguments for SendRawEmail
+        Tags: [{
+            Name: 'tag name',
+            Value: 'tag value'
+        }]
+    }
+}, (err, info) => {
+    console.log(info.envelope);
+    console.log(info.messageId);
+});
     librarian.save().then(()=> {
         res.status(200).send({msg:"Email sent to above email address please verify"});
         console.log("insert");
