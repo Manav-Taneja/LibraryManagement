@@ -27,7 +27,7 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
   from: 'manav.taneja26@gmail.com',
-  to: 'dtaneja089@gmail.com',
+  to: req.body.email,
   subject: 'Verification mail',
  // text: 'http://localhost:3000/show'
   html:"<h1>Hello Guys</h1><br><p>verification from .. system</p><br><a href='http://18.221.127.157:3000/show'>click me</a>"
