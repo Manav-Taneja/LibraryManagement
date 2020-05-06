@@ -51,7 +51,7 @@
       <div class="nav navbar-nav navbar-right">
         <form action="/book/search/" style="font-size: large;">
           <input type="text" placeholder="Search.." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
+          <button type="submit" onclick="search1()"><i class="fa fa-search"></i></button>
         </form>
       </div>
       <hr>
@@ -155,6 +155,12 @@ var myChart = new Chart(ctx, {
     }
   }
   return "";
+}
+function search1(){
+console.log("inside search");
+var record=document.getElementById('search').value
+//var xmlHttpRequest = new XMLHttpRequest()
+window.open("http://localhost:3000/book/search/"+record);
 }
       </script>
   <br><br><b>Above figure shows the student with more no. of books more the height of bars most the quantity of book the student have</b>
