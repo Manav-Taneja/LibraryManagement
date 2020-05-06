@@ -8,7 +8,8 @@ var cors = require('cors');
 const expressHandlebars= require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const app = express();
-var url = "mongodb://localhost:27017/Book"; //LIVE DATABASE
+//var url = "mongodb://localhost:27017/Book"; //LIVE DATABASE
+var url="mongodb+srv://manav_26:taneja@130926@book-e1uv4.mongodb.net/test"
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
