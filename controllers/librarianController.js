@@ -20,17 +20,17 @@ res.header("authorization", token._id)
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'manav18csu121@ncuindia.edu',
-    pass: 'manav54321'
+    user: 'manav.taneja26@gmail.com',
+    pass: 'taneja99'
   }
 });
 
 var mailOptions = {
-  from: 'manav18csu121@ncuindia.edu',
+  from: 'manav.taneja26@gmail.com',
   to: req.body.email,
   subject: 'Verification mail',
  // text: 'http://localhost:3000/show'
-  html:"<h1>Hello Guys</h1><br><p>verification from .. system</p><br><a href='http://localhost:3000/show'>click me</a>"
+  html:"<h1>Hello Guys</h1><br><p>verification from .. system</p><br><a href='http://52.14.235.218:3000/show'>click me</a>"
 
 };
 
